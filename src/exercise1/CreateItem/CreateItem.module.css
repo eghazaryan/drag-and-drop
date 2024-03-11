@@ -1,0 +1,38 @@
+.root {
+  width: rem(498px);
+  height: rem(75px);
+  border-radius: var(--mantine-radius-md);
+  border: rem(1px) solid var(--mantine-color-gray-3);
+  background: var(--mantine-color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newItemRoot {
+  border-radius: var(--mantine-radius-md);
+  border: rem(1px) solid var(--mantine-color-gray-3);
+  background: var(--mantine-color-white);
+}
+
+.newItemIcon {
+  background-color: var(--mantine-color-gray-0);
+  color: var(--mantine-color-invisalign-filled);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: rem(50px);
+  height: rem(50px);
+  border-radius: var(--mantine-radius-md);
+  box-shadow: 0 rem(8px) rem(10px) rgba(0, 0, 0, 0.1);
+}
+
+.input {
+  width: rem(170px);
+  border-bottom: rem(2px) solid transparent;
+  font-size: var(--mantine-font-size-lg);
+}
+
+.newItemInner {
+  flex: 1;
+}

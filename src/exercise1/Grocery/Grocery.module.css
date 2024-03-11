@@ -1,0 +1,32 @@
+.root {
+  border-radius: var(--mantine-radius-md);
+  border: rem(1px) solid var(--mantine-color-gray-3);
+  background: var(--mantine-color-white);
+}
+
+.inner {
+  flex: 1;
+}
+
+.input {
+  width: rem(170px);
+  border-bottom: rem(2px) solid transparent;
+  font-size: var(--mantine-font-size-lg);
+
+  @mixin hover {
+    border-radius: 0;
+    border-bottom: rem(2px) solid var(--mantine-color-gray-3);
+  }
+}
+
+.icon {
+  background-color: var(--mantine-color-gray-0);
+  color: var(--mantine-color-invisalign-filled);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: rem(50px);
+  height: rem(50px);
+  border-radius: var(--mantine-radius-md);
+  box-shadow: 0 rem(8px) rem(10px) rgba(0, 0, 0, 0.1);
+}
