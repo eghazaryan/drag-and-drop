@@ -1,0 +1,31 @@
+.root {
+  border-radius: var(--mantine-radius-md);
+  border: rem(1px) solid var(--mantine-color-gray-3);
+  background: var(--mantine-color-white);
+  position: relative;
+}
+
+.inner {
+  flex: 1;
+}
+
+.input {
+  width: rem(170px);
+  border-bottom: rem(2px) solid transparent;
+  font-size: var(--mantine-font-size-lg);
+
+  @mixin hover {
+    border-radius: 0;
+    border-bottom: rem(2px) solid var(--mantine-color-gray-3);
+  }
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @mixin hover {
+    cursor: grab;
+  }
+}

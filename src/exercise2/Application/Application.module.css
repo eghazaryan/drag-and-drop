@@ -1,0 +1,9 @@
+.root {
+  border: rem(1px) solid green;
+  border-radius: var(--mantine-radius-lg);
+  border: rem(1px) solid var(--mantine-color-gray-3);
+  box-shadow: 0 rem(7px) rem(29px) 0 rgba(100, 100, 111, 0.2);
+  padding: rem(0px);
+  padding-top: var(--mantine-spacing-xl);
+  padding-bottom: var(--mantine-spacing-xl);
+}

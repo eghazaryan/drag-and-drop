@@ -116,29 +116,27 @@ export function Application() {
       handleUpdate={handleUpdate}
     />
   ));
-  console.log(data, 'data');
+
   return (
     <Container className={classes.root} size="xs" mt="50px">
+      <Title pl="lg" p="sm" order={2}>
+        Exercise 1: react-beautiful-dnd
+      </Title>
+
+      <Divider mt="sm" mb="xl" />
+
       <DragDropContext onDragEnd={onDragEnd}>
-        <div>
-          <Title pl="lg" p="sm" order={2}>
-            Exercise 1 - List of groceries
-          </Title>
+        <Droppable droppableId={'column-1'}>
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <div className={classes.inner}>{rows}</div>
 
-          <Divider mt="sm" mb="xl" />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
 
-          <Droppable droppableId={'column-1'}>
-            {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                <div className={classes.inner}>{rows}</div>
-
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-
-          <CreateItem handleCreate={handleCreate} />
-        </div>
+        <CreateItem handleCreate={handleCreate} />
       </DragDropContext>
     </Container>
   );
