@@ -1,0 +1,9 @@
+.root {
+  margin-top: rem(50px);
+}
+
+.inner {
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,14 @@
+.root {
+  background: var(--mantine-color-gray-1);
+  border: rem(1px) solid var(--mantine-color-gray-3);
+  border-radius: var(--mantine-radius-md);
+  box-shadow: 0 rem(7px) rem(29px) 0 rgba(100, 100, 111, 0.2);
+  width: rem(300px);
+  padding-bottom: var(--mantine-spacing-xl);
+  height: max-content;
+  /* min-height: rem(200px); */
+}
+
+.root :where(h3, div) {
+  margin: var(--mantine-spacing-md);
+}

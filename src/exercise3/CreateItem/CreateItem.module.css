@@ -1,5 +1,5 @@
 .root {
-  width: rem(498px);
+  width: rem(300px);
   height: rem(75px);
   border-radius: var(--mantine-radius-md);
   border: rem(1px) solid var(--mantine-color-gray-3);
@@ -7,12 +7,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: var(--mantine-spacing-xs);
 }
 
-.newItemRoot {
-  border-radius: var(--mantine-radius-md);
-  border: rem(1px) solid var(--mantine-color-gray-3);
-  background: var(--mantine-color-white);
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  /* width: rem(170px); */
+  /* border-bottom: rem(2px) solid transparent; */
+  /* font-size: var(--mantine-font-size-lg); */
+}
+
+.input {
+  /* border: none; */
+  /* width: rem(170px); */
+  /* border-bottom: rem(2px) solid gray; */
+  /* font-size: var(--mantine-font-size-lg); */
 }
 
 .newItemIcon {
@@ -27,12 +41,6 @@
   box-shadow: 0 rem(8px) rem(10px) rgba(0, 0, 0, 0.1); */
 }
 
-.input {
-  width: rem(170px);
-  border-bottom: rem(2px) solid transparent;
-  font-size: var(--mantine-font-size-lg);
-}
-
 .newItemInner {
-  flex: 1;
+  /* flex: 1; */
 }
