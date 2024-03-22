@@ -1,4 +1,4 @@
-import { IconDots } from '@tabler/icons-react';
+import { IconDots, IconPencil } from '@tabler/icons-react';
 import { Draggable } from 'react-beautiful-dnd';
 import { ActionIcon, Text, Title } from '@mantine/core';
 import { TaskType } from '../Application/Application';
@@ -23,8 +23,8 @@ export function Task({ data, index }: TaskProps) {
             <Title order={4} className={classes.title}>
               {data.title}
             </Title>
-            <ActionIcon variant="transparent" color="gray">
-              <IconDots stroke={0.5} />
+            <ActionIcon className={classes.icon} variant="transparent" color="gray">
+              <IconPencil stroke={0.5} />
             </ActionIcon>
 
             <Text className={classes.description}>{data.description}</Text>

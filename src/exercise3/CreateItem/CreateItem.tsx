@@ -1,42 +1,28 @@
 import { FormEvent, useState } from 'react';
 import { IconPlus } from '@tabler/icons-react';
-import { Text, TextInput, UnstyledButton } from '@mantine/core';
+import { Box, BoxComponentProps, Text, TextInput, UnstyledButton } from '@mantine/core';
 import { useClickOutside } from '@mantine/hooks';
-import { ColumnType, TaskType } from '../Application/Application';
+import { TaskType } from '../Application/Application';
 import classes from './CreateItem.module.css';
 
-interface CreateItemProps {
+interface CreateItemProps extends BoxComponentProps {
   type: 'column' | 'task';
   title: string;
   placeholder: string;
-  column?: ColumnType;
-  handleCreate: (value: ColumnType | TaskType) => void;
+  columnTitle?: string;
+  handleColumnCreate?: (value: string) => void;
+  handleTaskCreate?: (value: TaskType, title: string) => void;
 }
 
-interface TransformValues {
-  name: string;
-  column?: ColumnType;
-  type: CreateItemProps['type'];
-}
-
-const transformValue = ({ name, column, type }: TransformValues) => {
-  if (type === 'task' && column) {
-    return {
-      id: 1,
-      title: name,
-      description: '',
-      columnId: column.id,
-    };
-  }
-
-  return {
-    id: name.toLowerCase().replaceAll(' ', '-'),
-    title: name,
-    tasks: [],
-  };
-};
-
-export function CreateItem({ type, title, placeholder, column, handleCreate }: CreateItemProps) {
+export function CreateItem({
+  type,
+  title,
+  placeholder,
+  columnTitle,
+  handleColumnCreate,
+  handleTaskCreate,
+  ...others
+}: CreateItemProps) {
   const [showNewItem, setShowNewItem] = useState(false);
   const [name, setName] = useState('');
 
@@ -44,7 +30,12 @@ export function CreateItem({ type, title, placeholder, column, handleCreate }: C
     if (event && name) {
       event.preventDefault();
 
-      handleCreate(transformValue({ name, column, type }));
+      if (type === 'column' && handleColumnCreate) {
+        handleColumnCreate(name);
+      }
+      if (type === 'task' && handleTaskCreate && columnTitle) {
+        handleTaskCreate({ title: name, description: '', id: Math.random() }, columnTitle);
+      }
     }
 
     setName('');
@@ -54,7 +45,7 @@ export function CreateItem({ type, title, placeholder, column, handleCreate }: C
   const ref = useClickOutside(() => onSubmit());
 
   return (
-    <div className={classes.root}>
+    <Box {...others}>
       {showNewItem ? (
         <form ref={ref} className={classes.form} onSubmit={onSubmit}>
           <TextInput
@@ -73,6 +64,6 @@ export function CreateItem({ type, title, placeholder, column, handleCreate }: C
           <Text>{title}</Text>
         </UnstyledButton>
       )}
-    </div>
+    </Box>
   );
 }

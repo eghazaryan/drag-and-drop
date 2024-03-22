@@ -11,73 +11,47 @@ export interface TaskType {
   description: string;
 }
 
-export interface ColumnType {
-  id: string;
-  title: string;
-  tasks: TaskType[];
-}
+export type ColumnType = Record<string, TaskType[]>;
 
-const columnMock: ColumnType[] = [
-  {
-    id: 'to-do',
-    title: 'To Do',
-    tasks: [
-      {
-        id: 1,
-        title: 'CSS selectors',
-        description: 'Get familiar with :has :where and :is selectors',
-      },
-      {
-        id: 2,
-        title: 'Grid layout',
-        description: 'FInish CSS Grid course and learning materials',
-      },
-
-      {
-        id: 4,
-        title: 'Task without description',
-        description: '',
-      },
-    ],
-  },
-  {
-    id: 'in-progress',
-    title: 'In Progress',
-    tasks: [
-      {
-        id: 3,
-        title: 'Drag and Drop',
-        description: 'Research the current state of Drag and Drop libraries in React.',
-      },
-    ],
-  },
-  { id: 'done', title: 'Done', tasks: [] },
-];
-// const startPosition = data.findIndex((item) => item.id === startIndex);
-//   const endPosition = data.findIndex((item) => item.id === endIndex);
+const columnMock: ColumnType = {
+  'To do': [
+    {
+      id: 1,
+      title: 'CSS selectors',
+      description: 'Get familiar with :has :where and :is selectors',
+    },
+    {
+      id: 2,
+      title: 'Grid layout',
+      description: 'FInish CSS Grid course and learning materials',
+    },
+    {
+      id: 4,
+      title: 'Task without description',
+      description: '',
+    },
+  ],
+  'In progress': [
+    {
+      id: 3,
+      title: 'Drag and Drop',
+      description: 'Research the current state of Drag and Drop libraries in React.',
+    },
+  ],
+  Done: [],
+};
 
 interface ReorderProps {
-  columns: ColumnType[];
+  columns: ColumnType;
   source: DraggableLocation;
   destination: DraggableLocation;
 }
 
-const reorder = ({ columns, source, destination }: ReorderProps): ColumnType[] => {
-  const result = Array.from(columns);
+const reorder = ({ columns, source, destination }: ReorderProps): ColumnType => {
+  const result = { ...columns };
 
-  //Find source column and remove draggable item
-  const [removed] = columns
-    .find((column) => {
-      return column.id === source.droppableId;
-    })!
-    .tasks.splice(source.index, 1);
-
-  //Find destination column and add draggable item
-  columns
-    .find((column) => {
-      return column.id === destination.droppableId;
-    })!
-    .tasks.splice(destination.index, 0, removed);
+  const [removed] = result[source.droppableId].splice(source.index, 1);
+  columns[destination.droppableId].splice(destination.index, 0, removed);
 
   return result;
 };
@@ -86,8 +60,8 @@ export function Application() {
   const [columns, setColumns] = useState(columnMock);
 
   const onDragEnd: OnDragEndResponder = (result) => {
-    const { source, destination, draggableId } = result;
-    console.log(result, 'result');
+    const { source, destination } = result;
+
     if (
       !destination ||
       (destination.index === source.index && destination.droppableId === source.droppableId)
@@ -100,16 +74,38 @@ export function Application() {
       source,
       destination,
     });
-
     setColumns(updatedData);
   };
 
-  const statusColumns = columns.map((column, index) => <Column data={column} key={index} />);
+  const handleColumnCreate = (newColumn: string) => {
+    setColumns((prev) => {
+      return { ...prev, [newColumn]: [] };
+    });
+  };
+
+  const handleTaskCreate = (newTask: TaskType, columnId: string) => {
+    const result = { ...columns };
+    result[columnId].push(newTask);
+    setColumns(result);
+  };
+
+  const statusColumns = Object.keys(columns).map((key, index) => (
+    <Column title={key} tasks={columns[key]} key={index} handleTaskCreate={handleTaskCreate} />
+  ));
 
   return (
     <Container className={classes.root} size="1600">
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className={classes.inner}> {statusColumns}</div>
+        <div className={classes.inner}>
+          {statusColumns}
+          <CreateItem
+            title="Add new column"
+            placeholder="Enter column title"
+            type="column"
+            handleColumnCreate={handleColumnCreate}
+            className={classes.newColumn}
+          />
+        </div>
       </DragDropContext>
     </Container>
   );

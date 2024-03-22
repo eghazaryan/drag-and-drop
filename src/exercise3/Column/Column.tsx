@@ -6,22 +6,31 @@ import { Task } from '../Task';
 import classes from './Column.module.css';
 
 interface ColumnProps {
-  data: ColumnType;
-  // handleCreate: (val: TaskType) => void;
+  title: string;
+  tasks: TaskType[];
+  handleTaskCreate: (val: TaskType, column: string) => void;
 }
 
-export function Column({ data }: ColumnProps) {
-  const rows = data.tasks.map((task, index) => <Task data={task} key={task.id} index={index} />);
+export function Column({ title, tasks, handleTaskCreate }: ColumnProps) {
+  const rows = tasks.map((task, index) => <Task data={task} key={task.id} index={index} />);
 
   return (
-    <Droppable droppableId={data.id}>
+    <Droppable droppableId={title}>
       {(provided) => (
         <div ref={provided.innerRef} {...provided.droppableProps} className={classes.root}>
-          <Title order={3}>{data.title}</Title>
+          <Title order={3}>{title}</Title>
           <Divider m={0} p={0} />
 
           {rows}
           {provided.placeholder}
+          <CreateItem
+            title="Add new task"
+            placeholder="Enter task title"
+            type="task"
+            columnTitle={title}
+            handleTaskCreate={handleTaskCreate}
+            className={classes.newTask}
+          />
         </div>
       )}
     </Droppable>

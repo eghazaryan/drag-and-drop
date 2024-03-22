@@ -3,7 +3,18 @@
 }
 
 .inner {
-  border: 1px solid red;
   display: flex;
   justify-content: space-between;
+}
+
+.newColumn {
+  width: rem(300px);
+  height: rem(75px);
+  border-radius: var(--mantine-radius-md);
+  border: rem(1px) solid var(--mantine-color-gray-3);
+  background: var(--mantine-color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--mantine-spacing-xs);
 }
